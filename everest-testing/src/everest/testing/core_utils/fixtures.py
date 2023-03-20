@@ -9,7 +9,7 @@ from everest.testing.core_utils.test_control_module import TestControlModule
 
 @ pytest.fixture
 def everest_core(request) -> EverestCore:
-    """Fixture that can be used to start and stop everest-core  
+    """Fixture that can be used to start and stop everest-core
     """
     everest_core_path = Path(request.config.getoption("--path"))
     everest_core = EverestCore(everest_core_path, everest_core_path / "config/config-sil.yaml")

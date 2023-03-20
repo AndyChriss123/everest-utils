@@ -4,6 +4,7 @@
 import sys
 import os
 import pytest
+import tempfile
 import pytest_asyncio
 import shutil
 import asyncio
@@ -120,22 +121,23 @@ def test_utility():
 
 @pytest.fixture
 def ftp_server(test_config):
-    """This fixture creates a temporary directory and starts 
+    """This fixture creates a temporary directory and starts
     a local ftp server connected to that directory. The temporary
     directory is deleted afterwards
     """
 
+    d = tempfile.mkdtemp(prefix='tmp_ftp')
+
     def _ftp_server(test_config):
-        os.mkdir("/tmp/temp_ftp_dir")
         test_controller_name = test_config['TestController']
 
         if test_controller_name == 'EVerest':
-            shutil.copyfile(test_config['Firmware']['UpdateFile'], "/tmp/temp_ftp_dir/firmware_update.pnx")
-            shutil.copyfile(test_config['Firmware']['UpdateFileSignature'], "/tmp/temp_ftp_dir/firmware_update.pnx.base64")
+            shutil.copyfile(test_config['Firmware']['UpdateFile'], os.path.join(d, "firmware_update.pnx"))
+            shutil.copyfile(test_config['Firmware']['UpdateFileSignature'],
+                            os.path.join(d, "firmware_update.pnx.base64"))
 
         authorizer = DummyAuthorizer()
-        authorizer.add_user(getpass.getuser(), "12345",
-                            f"/tmp/temp_ftp_dir", perm="elradfmwMT")
+        authorizer.add_user(getpass.getuser(), "12345", d, perm="elradfmwMT")
 
         handler = FTPHandler
         handler.authorizer = authorizer
@@ -151,4 +153,4 @@ def ftp_server(test_config):
 
     yield ftp_thread
 
-    shutil.rmtree(f"/tmp/temp_ftp_dir")
+    shutil.rmtree(d)

@@ -71,7 +71,6 @@ class EverestCore:
                 continue
             if rl:
                 output = rl.strip().decode('utf-8')
-                logging.critical(output)
 
         if expected_log not in output:
             logging.error("Timeout while waiting for EVerest to start")
@@ -83,7 +82,7 @@ class EverestCore:
     def stop(self):
         """Stops execution of EVerest by signaling SIGINT
         """
-        logging.debug(f"CONTROLLER stop() function called...")
+        logging.debug("CONTROLLER stop() function called...")
 
         if self.process != None:
             import signal

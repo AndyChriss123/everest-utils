@@ -23,13 +23,13 @@ class TestController:
         """
         raise NotImplementedError()
 
-    def plug_in(self):
+    def plug_in(self, connector_id):
         """
         Plug in of an electric vehicle to the chargepoint.
         """
         raise NotImplementedError()
 
-    def plug_in_ac_iso(self):
+    def plug_in_ac_iso(self, payment_type, connector_id):
         """
         Plug in of an electric vehicle to the chargepoint using AC ISO15118.
         """

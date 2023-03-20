@@ -39,8 +39,8 @@ class ChargePoint16(cp):
      of messages sent from CSMS to chargepoint.
     """
 
-    def __init__(self, id, connection, response_timeout=30):
-        super().__init__(id, connection, response_timeout)
+    def __init__(self, cp_id, connection, response_timeout=30):
+        super().__init__(cp_id, connection, response_timeout)
         self.pipeline = []
         self.pipe = False
         self.csr = None

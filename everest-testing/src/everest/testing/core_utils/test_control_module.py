@@ -110,5 +110,5 @@ class TestControlModule:
     def stop(self):
         """Stops the TestControlModule submodule
         """
-        logging.debug(f"CONTROL MODULE stop() function called...")
+        logging.debug("CONTROL MODULE stop() function called...")
 
